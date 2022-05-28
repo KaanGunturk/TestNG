@@ -1,4 +1,4 @@
-package day16_notations;
+package tests.day16_notations;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
@@ -35,12 +35,13 @@ public class C04_DependsOnMethods  {
 
     @Test
     public void test01() {
+        // amazon anasayfaya gidelim
         driver.get("https://www.amazon.com");
     }
 
     @Test (dependsOnMethods ="test01")
     public void test02() {
-
+        // Nutella aratalim
         WebElement aramaKutusu=driver.findElement(By.id("twotabsearchtextbox"));
         aramaKutusu.sendKeys("Nutella" + Keys.ENTER);
 
@@ -48,8 +49,14 @@ public class C04_DependsOnMethods  {
 
     @Test (dependsOnMethods ="test02")
     public void test03() {
+        // Sonuc yazisinin Nutella icerdigini test edelim
         WebElement sonucYaziElementi=driver.findElement(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']"));
         Assert.assertTrue(sonucYaziElementi.getText().contains("Nutella"));
 
+    }
+
+    @Test
+    public void test04(){
+        System.out.println("Bu calisti");
     }
 }
