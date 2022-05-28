@@ -3,15 +3,22 @@ package utilities;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.desktop.OpenFilesEvent;
 import java.time.Duration;
 
 public class Driver {
 
-    /*
-    POM'de Driver icin TestBase class'ina extends etmek yerine Driver class'indan static methodlar kullanarak
-    driver olusturup ilgili ayarlarin yapilmasi ve en sonda driver'in kapatilmasi tercih edilmiştir
+     /*
+    POM'de Driver icin TestBase class'ina extends etmek yerine
+    Driver class'indan static method'lar kullanarak
+    driver olusturup, ilgili ayarlarin yapilmasi
+    ve en sonda driver'in kapatilmasi tercih edilmistir.
      */
 
     static  WebDriver driver;
@@ -19,9 +26,24 @@ public class Driver {
     public static WebDriver getDriver(){
 
         if (driver==null){
+            switch (ConfigReader.getProperty("browser")){
+                case "safari":
+                    WebDriverManager.safaridriver().setup();
+                    driver=new SafariDriver();
+                    break;
+                case "firefox":
+                    WebDriverManager.firefoxdriver().setup();
+                    driver=new FirefoxDriver();
+                case "headless-chrome":
+                    WebDriverManager.chromedriver().setup();
+                    driver=new ChromeDriver(new ChromeOptions().setHeadless(true));
+                    break;
+                default:
+                    WebDriverManager.chromedriver().setup();
+                    driver=new ChromeDriver();
+            }
 
-            WebDriverManager.chromedriver().setup();
-            driver=new ChromeDriver();
+
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         }
