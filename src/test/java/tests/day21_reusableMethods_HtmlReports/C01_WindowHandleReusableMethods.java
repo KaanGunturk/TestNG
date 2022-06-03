@@ -1,4 +1,4 @@
-package tests.dey21_reusableMethods_HtmlReports;
+package tests.day21_reusableMethods_HtmlReports;
 
 import org.openqa.selenium.By;
 import org.testng.Assert;

@@ -1,4 +1,4 @@
-package tests.dey21_reusableMethods_HtmlReports;
+package tests.day21_reusableMethods_HtmlReports;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
